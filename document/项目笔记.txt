@@ -1,0 +1,127 @@
+布隆过滤器 - Bloom-Filter - Murmur-Hash
+json - str / pickle - bytes / shelve
+
+hashlib
+md5 / sha1 - 单向哈希函数 - 摘要/数字签名/指纹 - 保护隐私/防篡改
+rsa / pycrypto
+AES / RSA - 对称加密/非对称加密
+base64
+BASE64编码/解码 - 二进制序列转换成64个字符表示的字符串
+
+gitlab - 搭建自己的Git服务器
+git - gitee.com / coding.net / github.com
+
+PyLint - Lint工具
+pip3 install -i https://pypi.doubanio.com/simple pylint
+
+Pythonic代码
+
+查找
+seq_search(items: list, elem) -> int:
+bin_search(items: list, elem) -> int:
+排序
+bubble_sort(items, comp=lambda x, y: x < y)
+merge_sort(items, comp=lambda x, y: x < y)
+单例
+装饰器 - 装饰器函数一般用来编写需要重复使用但是跟正常业务又没有必然联系的功能，这种功能通常被称之为横切关注功能，Django中的中间件跟装饰器的道理是一样的。
+
+扑克 / 玩家 / 牌发到四个玩家手上
+
+gitee注册账号 - 团队开发用gitee作为代码托管平台实施版本控制
+
+Docker - 虚拟化容器
+
+MySQL / Redis / Nginx / uWSGI
+
+项目的商业背景 - 电商网站/App - B2B / C2C / B2C / C2B / O2O
+
+项目的架构
+    - 业务架构（功能模块/子模块）- 思维导图
+    - 技术架构（开发框架/数据库/缓存/消息中间件/前端/移动端）- 技术栈
+    - 物理架构（Nginx/uWSGI/Gunicorn/MySQL/Oracle/Redis/主从复制/读写分离/负载均衡/安全证书）- 部署
+
+更换PYPI源(https://pypi.org)
+Linux or macOS
+在用户主目录创建.pip文件夹并在文件夹下添加一个pip.conf文件
+Windows
+在用户主目录创建pip文件夹并在文件夹下添加一个pip.ini文件
+
+[global]
+index-url=https://pypi.doubanio.com/simple
+
+在处理项目的业务实体（业务模型）时有正向工程和反向工程两种方式：
+1. 正向工程 - 编写模型类的代码，通过迁移操作生成数据库中的表
+python manage.py makemigrations appname
+python manage.py migrate
+
+2. 反向工程 - 数据库中的表已经提前准备好了，可以通过表来生成模型
+python manage.py inspectdb > appname/models.py
+
+注意：
+1. 模型名可以改但是要将关联的地方一并修改（重构-重命名），表名不能乱动
+2. 如果要修改属性名，那么要修改对应的db_column属性以便跟列保持对应关系
+3. 如果希望Django框架来管理模型，需要将managed=False删除或修改为True
+
+RESTful架构 / REST风格
+阮一峰 REST
+《网络API接口设计》文档
+rap2.taobao.org ==> 文档和假数据
+
+
+访问控制管理/权限管理
+1. RBAC - 基于角色的访问控制
+
+用户 - 角色 - 权限 （- 资源）
+
+至少是5张表，有可能是6张表
+
+用户 - 用户组 - 角色 - 权限 （- 资源）
+
+中间件 - request - 用户信息 - 查询权限 - 放行/阻止
+
+2. ACL - 访问控制列表
+
+用户登录 - 绑定白名单/黑名单 - 中间件
+
+防火墙配置 - 至少架设两级防火墙
+DMZ - 停火区 - 两级防火墙之间的区域
+数据库服务器、资源服务器等保存重要数据的服务器应该在第二级防火墙之后
+
+静态资源服务器（文件服务器）- FastDFS
+替代方案 - 使用云存储服务 - 七牛/Bmob/LeanCloud/OSS/Amazone
+
+HttpResponse
+JsonResponse
+文件下载
+
+报表功能
+1. 后端渲染
+	把Excel、PDF二进制数据放到HttpResponse里面
+	在响应头中设定好content-type和content-disposition
+	如果文件较大建议使用迭代器和StreamingHttpResponse
+	生成Excel和PDF等格式的报表有对应的第三方库
+
+2. 前端渲染
+	Echarts - http://echarts.baidu.com/
+	后端提供数据接口，前端异步请求获取数据，通过ECharts进行渲染
+	教程 - http://www.echartsjs.com/tutorial.html
+
+RESTful架构和API设计
+djangorestframework / drf-extensions
+
+SSL - 安全套接层 / TLS - 传输层安全
+Internet - TCP/IP模型 - 四层模型
+复杂系统在设计上通常都要做分解或分层的设计
+每一层的功能相对单一和独立，每一层又为上一层提供了服务
+
+应用层 - HTTP(s)		===> 定义应用级协议
+传输层 - TCP/UDP		===> 为应用层提供传输服务
+IP层(网络层)			===> 为传输层提供寻址和路由服务
+网络接口层(物理链路层)	===> 为网络层提供分帧和校验服务
+
+
+
+
+
+
+

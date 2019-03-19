@@ -1,0 +1,40 @@
+安装Docker
+yum -y install docker-io
+
+启动Docker服务
+systemctl start docker
+service docker start
+
+Docker镜像
+docker images --- 查看镜像
+docker pull <name>:<version> --- 下载镜像
+docker rmi --- 删除镜像
+
+Docker容器
+docker run -d -p <o-port>:<i-port> --name <name> 镜像:版本号
+docker start <name>
+docker stop <name>
+docker rm <name> --- 删除指定的的容器(没有运行)
+docker rm -f <name> --- 强行删除指定的容器
+docker container ls --- 查看正在运行的容器
+docker container ls -a --- 查看所有容器
+docker container prune --- 删除所有没有运行的容器
+docker exec -it <name> /bin/bash --- 进入容器的Shell环境
+
+docker ps --- 查看正在运行的容器
+
+Redis有两种持久化方案: RDB / AOF
+
+
+例子
+1. 创建Redis主机
+docker run -d -p 6379:6379 --name redis-master redis:4.0 redis-server --appendonly yes --requirepass 1qaz2wsx
+2. 创建三个Redis从机
+docker run -d --name redis-slave-1 --link redis-master:redis-master redis:4.0 redis-server --slaveof redis-master 6379 --masterauth 1qaz2wsx
+docker run -d --name redis-slave-2 --link redis-master:redis-master redis:4.0 redis-server --slaveof redis-master 6379 --masterauth 1qaz2wsx
+docker run -d --name redis-slave-3 --link redis-master:redis-master redis:4.0 redis-server --slaveof redis-master 6379 --masterauth 1qaz2wsx
+3. 检查主从复制的配置
+docker exec -it redis-master /bin/bash
+redis-cli
+> auth 1qaz2wsx
+> info replication

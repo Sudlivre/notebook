@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>健壮高效的网络爬虫——感谢崔大的分享 &#8211; 南 書</title>
+<script>
+window._deel = {name: '南 書',url: 'http://www.sudlivre.com/wp-content/themes/yusi1.0', ajaxpager: 'on', commenton: 1, roll: [0,0]}
+</script>
+<meta name='robots' content='noindex,follow' />
+<link rel='dns-prefetch' href='//libs.baidu.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.sudlivre.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.8"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='style-css'  href='http://www.sudlivre.com/wp-content/themes/yusi1.0/style.css?ver=1.0' type='text/css' media='all' />
+<script type='text/javascript' src='//libs.baidu.com/jquery/1.8.3/jquery.min.js?ver=1.0'></script>
+<link rel='https://api.w.org/' href='http://www.sudlivre.com/index.php/wp-json/' />
+<link rel='prev' title='爬虫 | Python中使用Js2Py执行JavaScript脚本' href='http://www.sudlivre.com/index.php/2018/10/09/use_js2py/' />
+<link rel="canonical" href="http://www.sudlivre.com/index.php/2018/10/21/jingmisipdera/" />
+<link rel='shortlink' href='http://www.sudlivre.com/?p=143' />
+<link rel="alternate" type="application/json+oembed" href="http://www.sudlivre.com/index.php/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.sudlivre.com%2Findex.php%2F2018%2F10%2F21%2Fjingmisipdera%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://www.sudlivre.com/index.php/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.sudlivre.com%2Findex.php%2F2018%2F10%2F21%2Fjingmisipdera%2F&#038;format=xml" />
+<meta name="keywords" content="爬虫, Python">
+<meta name="description" content="健壮高效的网络爬虫 10月21日下午 崔大在B站直播给我们分享健壮高效的网络爬虫，直播中给我们总结了很多爬虫思路，以及很多的工具。下面记录这种重要的信息。通过这样大的架构更加深入的学习爬虫。  主要从下面几个方面做一个总结：  爬取、解析、存储、防反爬、加速 爬取——使用各种方法应对不同情景下的数据抓取任务 如何选取适当的方式来实现页面爬取 服务端渲染 页面结果是由服务器渲染后返回的,有效信息包含在请求的 HTML 页面中。  &nbs">
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #f2f2f2; }
+</style>
+<link rel="icon" href="http://www.sudlivre.com/wp-content/uploads/2018/09/maxjianhuangcao-150x150.png" sizes="32x32" />
+<link rel="icon" href="http://www.sudlivre.com/wp-content/uploads/2018/09/maxjianhuangcao.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.sudlivre.com/wp-content/uploads/2018/09/maxjianhuangcao.png" />
+<meta name="msapplication-TileImage" content="http://www.sudlivre.com/wp-content/uploads/2018/09/maxjianhuangcao.png" />
+<!--[if lt IE 9]><script src="http://www.sudlivre.com/wp-content/themes/yusi1.0/js/html5.js"></script><![endif]-->
+<link href='http://www.youziku.com/webfont/CSS/457ccd6fa5524e6cdd2c26cb7ad46b4d' rel='stylesheet' type='text/css'/>
+</head>
+<body class="post-template-default single single-post postid-143 single-format-standard custom-background">
+
+<header id="header" class="header">
+<div class="container-inner">
+ <div class="yusi-logo">
+                    <a href="/">
+                        <h1>
+                                                        <span class="yusi-mono">南 書</span>
+                                                        <span class="yusi-bloger">邂逅相遇  适我愿兮</span>
+                                                    </h1>
+                    </a>
+    </div>
+</div>
+
+	<div id="nav-header" class="navbar">
+		
+		<ul class="nav">
+			<li id="menu-item-15" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15"><a href="http://112.74.46.120/">首页</a></li>
+<li id="menu-item-16" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16"><a href="http://www.sudlivre.com/index.php/aboutme/">关于自己</a></li>
+<li style="float:right;">
+                    <div class="toggle-search"><i class="fa fa-search"></i></div>
+<div class="search-expand" style="display: none;"><div class="search-expand-inner"><form method="get" class="searchform themeform" onsubmit="location.href='http://www.sudlivre.com/search/' + encodeURIComponent(this.s.value).replace(/%20/g, '+'); return false;" action="/"><div> <input type="ext" class="search" name="s" onblur="if(this.value=='')this.value='search...';" onfocus="if(this.value=='search...')this.value='';" value="search..."></div></form></div></div>
+</li>
+		</ul>
+	</div>
+	</div>
+</header>
+<section class="container"><div class="speedbar">
+					<div class="pull-right">
+				<i class="fa fa-user"></i> <a href="http://www.sudlivre.com/wp-login.php">登录</a>			</div>
+				<div class="toptip"><strong class="text-success"><i class="fa fa-volume-up"></i> </strong> 一步两步三步......</div>
+	</div>
+	<div class="content-wrap">
+	<div class="content">
+<div class="breadcrumbs"><a title="返回首页" href="http://www.sudlivre.com"><i class="fa fa-home"></i></a> <small>></small> <a href="http://www.sudlivre.com/index.php/category/python/">Python</a> <small>></small> <span class="muted">健壮高效的网络爬虫——感谢崔大的分享</span></div>
+				<header class="article-header">
+			<h1 class="article-title"><a href="http://www.sudlivre.com/index.php/2018/10/21/jingmisipdera/">健壮高效的网络爬虫——感谢崔大的分享</a></h1>
+			<div class="meta">
+				<span id="mute-category" class="muted"><i class="fa fa-list-alt"></i><a href="http://www.sudlivre.com/index.php/category/python/"> Python</a></span>				<span class="muted"><i class="fa fa-user"></i> <a href="http://www.sudlivre.com/index.php/author/admin/">Sudlivre</a></span>
+				<time class="muted"><i class="fa fa-clock-o"></i> 2周前 (10-21)</time>
+				<span class="muted"><i class="fa fa-eye"></i> 12℃</span>
+				<span class="muted"><i class="fa fa-comments-o"></i> <a href="http://www.sudlivre.com/index.php/2018/10/21/jingmisipdera/#respond">0评论</a></span>							</div>
+		</header>
+		<article class="article-content">
+			<h2>健壮高效的网络爬虫</h2>
+<p>10月21日下午 崔大在B站直播给我们分享健壮高效的网络爬虫，直播中给我们总结了很多爬虫思路，以及很多的工具。下面记录这种重要的信息。通过这样大的架构更加深入的学习爬虫。</p>
+<p>主要从下面几个方面做一个总结：</p>
+<p><strong>爬取、解析、存储、防反爬、加速</strong></p>
+<h2>爬取——使用各种方法应对不同情景下的数据抓取任务</h2>
+<p>如何选取适当的方式来实现页面爬取</p>
+<h4>服务端渲染</h4>
+<p>页面结果是由服务器渲染后返回的,有效信息包含在请求的 HTML 页面中。</p>
+<p>&nbsp;</p>
+<p><strong>urllib——</strong>Python 自带的原生底层库</p>
+<p><strong>urllib3——</strong>相比 urllib 增加许多新特性</p>
+<p><strong>pycurl——</strong>libcurl 的 Python 实现</p>
+<p><strong>hyper——</strong>支持 HTTP2 的新特性</p>
+<p><strong>requests——</strong>应用最广泛的 HTTP 请求库</p>
+<p><strong>grab——</strong>基于 urllib3 和 PyQuery 封装</p>
+<p>&nbsp;</p>
+<h4>客户端渲染</h4>
+<p>页面面结果由 JavaScript 渲染而而成,数据还可能经过Ajax 等方方式从后台获取。</p>
+<p>&nbsp;</p>
+<p><strong>一、寻找 Ajax 接口</strong></p>
+<p><strong>Chrome/Firefox</strong>——浏览器自带开发者工具查看请求</p>
+<p><strong>Fiddler/Charles</strong>——设置代理,用抓包工具查看</p>
+<p>&nbsp;</p>
+<p><strong>二、模拟浏览器执行</strong></p>
+<p><strong>Selenium</strong>——驱动 Chrome、Firefox 等浏览器爬取</p>
+<p><strong>Splinter</strong>——依赖于 Selenium、Flask</p>
+<p><strong>Spynner/Ghost.py</strong>——依赖于 PyQt</p>
+<p><strong>pyppeteer</strong>——puppetter (Google 开发) 的 Python 版本</p>
+<p><strong>PhantomJS</strong>——无界面浏览器,已停止开发</p>
+<p><strong>Splash</strong>——常与 Scrapy 配合使用</p>
+<p><strong>requests-html</strong>——requests 作者开发,集成 pyppeteer</p>
+<p>&nbsp;</p>
+<p><strong>三、直接提取 JavaScript 数据</strong></p>
+<p><strong>正则表达式</strong>——渲染的数据直接隐藏在 HTML 结果的 JavaScript 变量里面,可以直接正则提取并解</p>
+<p>&nbsp;</p>
+<p><strong>四、模拟执行 JavaScript</strong></p>
+<p><strong>Selenium</strong>——使用 execute_script 方法执行 JavaScript 代码,return 可获取执行结果</p>
+<p><strong>js2py</strong>——JavaScript 代码转 Python 代码执行</p>
+<p><strong>PyExecJS</strong>——支持 Node.js, PyV8, PhantomJS 等引擎</p>
+<p><strong>PyV8</strong>——已停止维护,但 Python2 版本仍可用</p>
+<p>&nbsp;</p>
+<h4>App</h4>
+<p><strong>一、普通接口</strong></p>
+<p>接口无加密,可直接抓包后根据参数规律构造请求</p>
+<p><strong>Charles/Fiddler/mitmproxy</strong>——直接设置代理抓 HTTP/HTTPS 包</p>
+<p>&nbsp;</p>
+<p><strong>二、加密参数接口</strong></p>
+<p>接口的参数经过了加密,每次请求都有随机的 Token</p>
+<p><strong>Fiddler</strong>——对接 C# 实时处理脚本处理</p>
+<p><strong>Xposed</strong>——使用 hook 来直接获取结果</p>
+<p><strong>mitmdump</strong>——对接 Python 脚本实时处理</p>
+<p><strong>直接破解</strong>——直接破解加密参数构造规</p>
+<p>&nbsp;</p>
+<p><strong>三、加密内容接口</strong></p>
+<p>接口的内容经过了加密混淆,无法直接查看</p>
+<p><strong>Appium</strong>——类似 Selenium,可见即可爬</p>
+<p><strong>反编译</strong>——反编译找出加密算法,然后直接模拟</p>
+<p><strong>Xposed</strong>——使用 hook 来直接获取结果</p>
+<p><strong>改写手机底层</strong>——直接修改操作系统源码</p>
+<p>&nbsp;</p>
+<p><strong>四、非常规协议</strong></p>
+<p>非 HTTP/HTTPS 常规协议,直接抓包无结果</p>
+<p><strong>WireShark</strong>——抓取所有协议的包</p>
+<p><strong>TCPdump</strong>——抓取 TCP 数据包</p>
+<p>&nbsp;</p>
+<h2>解析——解析爬取下来的结果并保留有效信息</h2>
+<h4>常用方式</h4>
+<p><strong>正则表达式</strong></p>
+<p>通用万能的解析方式,但有时编写正则不方便和高效,常用库 re</p>
+<p><strong>Json / XML</strong></p>
+<p>接口常返回 Json、XML 等格式化数据,直接解析即可,使用 json、xml2dict 等</p>
+<p><strong>XPath</strong></p>
+<p>XPath是解析HTML的常用方式,常用库有lxml、Scrapy Selector等。</p>
+<p><strong>CSS Selector</strong></p>
+<p>CSS 选择器同样是简单易用的解析方式,常用库 pyquery、cssselect</p>
+<h4>智能解析</h4>
+<p><strong>readability</strong></p>
+<p>定义不同区块的不同标注集合,计算最可能的区块位置,如 Newspaper 库</p>
+<p><strong>疏密度判断</strong></p>
+<p>计算单位个数区块内的平均文本内容长度,根据疏密程度计算</p>
+<p><strong>Scrapely 自学习</strong></p>
+<p>指定⻚面和提取结果样例,其可自学习提取规则,提取其他同类⻚面</p>
+<p><strong>深度学习</strong></p>
+<p>使用深度学习来对解析位置进行有监督学习,需要大量标注数据</p>
+<p>&nbsp;</p>
+<h2>存储——选用用合适的存储媒介来存储有效信息</h2>
+<p><strong>文件</strong><br />
+存储成文件形式,如 Json、CSV、TXT、图片、视频、音频等</p>
+<p>csv、xlwt、json、pandas、pickle、python-docx</p>
+<p><strong>数据库</strong><br />
+分为关系型数据库、非关系型数据库,如 MySQL、MongoDB、HBase 等,持久化</p>
+<p>pymysql、pymssql、redis-py、pymongo、py2neo、thrift</p>
+<p><strong>搜索引擎</strong><br />
+如 Solr、ElasticSearch 等,便于检索,文本匹配</p>
+<p>elasticsearch、pysolr</p>
+<p><strong>云存储</strong><br />
+如七牛云、又拍云、阿里云、腾讯云、Amazon S3 等</p>
+<p>qiniu、upyun、boto、azure-storage、google-cloud-storage</p>
+<p>&nbsp;</p>
+<h2>防反爬——反爬虫虫情景越来越多,如何有效应对是个问题</h2>
+<h4><strong>非浏览器</strong></h4>
+<p>识别 Headers 里面没有包含 User-Agent</p>
+<h4><strong>封 IP</strong></h4>
+<p>同一 IP 访问过于频繁会被封禁。</p>
+<p><strong>手机站点或 App 站点</strong>——手机或 App 站点反爬较弱</p>
+<p><strong>免费代理</strong>——爬取免费代理使用,可用率极低</p>
+<p><strong>付费代理</strong>——购买付费代理使用,可用率高,推荐讯代理、阿布云代理、多⻉云代理、芝麻代理</p>
+<p><strong>维护代理池</strong>——使用免费或付费代理自己维护代理池</p>
+<p><strong>ADSL 代理</strong>——使用 ADSL 拨号主机搭建代理池,推荐云立方</p>
+<p><strong>Tor 代理</strong>——暗网代理,速度慢</p>
+<p><strong>Socks 代理</strong>——Socks 代理速度较快,可用 SS 服务器搭建使用代理</p>
+<p>&nbsp;</p>
+<h4>识别验证码</h4>
+<p><strong>一、数字字母、计算题的等</strong></p>
+<p><strong>OCR 识别</strong></p>
+<p>使用 Tesserocr 等库即可实现</p>
+<p><strong>KNN、SVM 等算法字符分类</strong></p>
+<p>机器学习算法进行字符分类,如 Sklearn</p>
+<p><strong>打码平台</strong></p>
+<p>对接打码平台进行识别,推荐超级鹰、云打码</p>
+<p><strong>深度学习训练</strong></p>
+<p>如卷积神经网络 CNN 进行字符识别,如 TensorFlow</p>
+<p>&nbsp;</p>
+<p><strong>二、图形、点触、滑动等验证码</strong></p>
+<p><strong>OCR+图像匹配(12306)</strong></p>
+<p>粗略略识别文字,然后利用识图等接口匹配</p>
+<p><strong>图像标注+深度学习</strong></p>
+<p>标注缺口或文字位置,进行深度学习训练,如 TensorFlow</p>
+<p><strong>打码平台</strong></p>
+<p>对接打码平台获得点击位置或缺口位置,推荐超级鹰</p>
+<p><strong>破解算法</strong></p>
+<p>研究加密算法进行破解</p>
+<p>&nbsp;</p>
+<p><strong>三、短信验证码</strong></p>
+<p><strong>自动收发验证码平台</strong></p>
+<p>平台提供手机号和自动发码收码服务,推荐易码</p>
+<p><strong>专业收码设备</strong></p>
+<p>插入手机卡,获取验证码</p>
+<p><strong>手工验证</strong></p>
+<p>手工验证验证码以及扫码</p>
+<p><strong>打码平台</strong></p>
+<p>提供微信扫码登录服务,微信号非本人</p>
+<p>&nbsp;</p>
+<h4>防封号</h4>
+<p><strong>手机站点或 App 站点</strong></p>
+<p>手机或 App 站点反爬较弱</p>
+<p><strong>寻找无需登录接口</strong></p>
+<p>尽可能寻找无需登录即可爬取的接口</p>
+<p><strong>维护 Cookies 池</strong></p>
+<p>使用批量账号模拟登录,使用时随机挑选一可用 Cookies 使用即可</p>
+<p>Cookies 池既可以同时检测登录封号状态,又可以实时破解验证码使用,保证 Session 正常。</p>
+<p>&nbsp;</p>
+<h2>加速——对于海海量量数据,如何高高效快速抓取数据是关键</h2>
+<h4><strong>多线程 / 进程</strong></h4>
+<p>爬虫是网络请求密集型,使用多进程和多线程可以成倍加速。</p>
+<p><strong>threading——</strong>多线程库,有 GIL 限制</p>
+<p><strong>multiprocessing——</strong>多进程库,无无 GIL 限制</p>
+<p>&nbsp;</p>
+<h4><strong>异步</strong></h4>
+<p>将爬取过程改成非阻塞式,大大节省时间。</p>
+<p><strong>asyncio</strong>——Python 3.5+ 新特性</p>
+<p><strong>Twisted / greenlet</strong>——基于事件驱动实现异步</p>
+<p><strong>grequests</strong>——requests+gevent 实现</p>
+<p><strong>pyspider</strong>——基于 Tornado 实现异步</p>
+<p><strong>aiohttp / Tornado</strong>——支持异步的服务端、客户端</p>
+<p><strong>gevent</strong>——异步协程实现</p>
+<p><strong>pyppeteer</strong>——支持 JavaScript 和异步</p>
+<p><strong>Scrapy</strong>——基于 Twisted 实现异步</p>
+<p>&nbsp;</p>
+<p><strong>分布式</strong></p>
+<p>使用多主机分布式协同爬取,大大提高爬取速度。</p>
+<p><strong>celery</strong>——异步任务队列</p>
+<p><strong>kafka</strong>——分布式消息系统</p>
+<p><strong>huey</strong>——小型多线程任务队列</p>
+<p><strong>pyspider</strong>——rabbitmq Redis 实现分布爬虫</p>
+<p><strong>rq</strong>——基于Redis的任务队列</p>
+<p><strong>Scrapy-Redis</strong>——基于 Redis 实现分布</p>
+<p><strong>rabbitmq</strong>——灵活可靠的消息队列</p>
+<p><strong>Scrapy-Cluster——</strong>Scrapy分布式系统</p>
+<p>&nbsp;</p>
+<h4>加速</h4>
+<p>优化解析、调度、去重等算法。</p>
+<p><strong>一、优化</strong></p>
+<p><strong>DNS 缓存</strong></p>
+<p>节省 DNS 解析时间</p>
+<p><strong>采用更快的解析方法</strong></p>
+<p>如 BeautifulSoup 的 lxml 模式比比 html5lib 模式快很多</p>
+<p><strong>更高效的去重方法</strong></p>
+<p>如基于 Redis 去重相对更高效,对接 BloomFilter 实现更快更省空间的去重方式</p>
+<p>&nbsp;</p>
+<p><strong>二、架构</strong></p>
+<p><strong>架构一</strong></p>
+<p><strong>爬虫项目</strong>——任意爬虫项目(推荐 Scrapy)单个项目对接好分布式、存储等配置</p>
+<p><strong>Docker</strong>——将项目打包成 Docker 镜像</p>
+<p><strong>Kuberneters</strong>——使用 Kuberneters 进行控制调度</p>
+<p><strong>架构二</strong></p>
+<p><strong>爬虫项目</strong>——Scrapy 单个项目对接好分布式、存储等配置</p>
+<p><strong>Scrapyd</strong>——将项目部署到 Scrapyd</p>
+<p><strong>API 管理</strong>——使用用 Scrapyd-API、SpiderKeeper、Gerapy 等监控</p>
+<p>&nbsp;</p>
+<p>感谢崔大的这次分享，自己对爬虫有了新的认识，今后会更加努力的学习，争取更快的进步。</p>
+<p>转载请注明：<a href="http://www.sudlivre.com">南 書</a> &raquo; <a href="http://www.sudlivre.com/index.php/2018/10/21/jingmisipdera/">健壮高效的网络爬虫——感谢崔大的分享</a></p>
+
+      
+<div class="article-social">
+			<a href="javascript:;" data-action="ding" data-id="143" id="Addlike" class="action"><i class="fa fa-heart-o"></i>喜欢 (<span class="count">4</span>)</a>	
+</div>
+	</article>	
+				<footer class="article-footer">
+			<div class="article-tags"><i class="fa fa-tags"></i><a href="http://www.sudlivre.com/index.php/tag/web-spider/" rel="tag">爬虫</a></div></footer>
+	<nav class="article-nav">
+			<span class="article-nav-prev"><i class="fa fa-angle-double-left"></i> <a href="http://www.sudlivre.com/index.php/2018/10/09/use_js2py/" rel="prev">爬虫 | Python中使用Js2Py执行JavaScript脚本</a></span>
+			<span class="article-nav-next"></span>
+		</nav>
+
+		<div class="related_top">
+			<div class="related_posts"><ul class="related_img">
+
+		<li class="related_box"  >
+		<a href="http://www.sudlivre.com/index.php/2018/10/09/use_js2py/" title="爬虫 | Python中使用Js2Py执行JavaScript脚本" target="_blank">
+<img src="http://www.sudlivre.com/wp-content/themes/yusi1.0/timthumb.php?src=http://www.sudlivre.com/wp-content/uploads/2018/10/xinlang.png&h=110&w=185&q=90&zc=1&ct=1" alt="爬虫 | Python中使用Js2Py执行JavaScript脚本" />	<br><span class="r_title">爬虫 | Python中使用Js2Py执行JavaScript脚本</span></a>
+		</li>
+	
+		<li class="related_box"  >
+		<a href="http://www.sudlivre.com/index.php/2018/09/02/usesplash/" title="爬虫 | JavaScript渲染服务Splash" target="_blank">
+<img src="http://www.sudlivre.com/wp-content/themes/yusi1.0/timthumb.php?src=http://www.sudlivre.com/wp-content/uploads/2018/10/js.png&h=110&w=185&q=90&zc=1&ct=1" alt="爬虫 | JavaScript渲染服务Splash" />	<br><span class="r_title">爬虫 | JavaScript渲染服务Splash</span></a>
+		</li>
+	
+		<li class="related_box"  >
+		<a href="http://www.sudlivre.com/index.php/2018/08/02/usegevent/" title="爬虫 | Python网络库gevent" target="_blank">
+<img src="http://www.sudlivre.com/wp-content/themes/yusi1.0/timthumb.php?src=http://www.sudlivre.com/wp-content/uploads/2018/10/spider.png&h=110&w=185&q=90&zc=1&ct=1" alt="爬虫 | Python网络库gevent" />	<br><span class="r_title">爬虫 | Python网络库gevent</span></a>
+		</li>
+	
+		<li class="related_box"  >
+		<a href="http://www.sudlivre.com/index.php/2018/07/19/xuanzhuancode/" title="爬虫 | 处理点击旋转验证码" target="_blank">
+<img src="http://www.sudlivre.com/wp-content/themes/yusi1.0/timthumb.php?src=http://www.sudlivre.com/wp-content/uploads/2018/09/huanhouniangniang.png&h=110&w=185&q=90&zc=1&ct=1" alt="爬虫 | 处理点击旋转验证码" />	<br><span class="r_title">爬虫 | 处理点击旋转验证码</span></a>
+		</li>
+	</ul>
+
+<div class="relates">
+<ul>
+<li><i class="fa fa-minus"></i><a target="_blank" href="http://www.sudlivre.com/index.php/2018/10/09/use_js2py/">爬虫 | Python中使用Js2Py执行JavaScript脚本</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.sudlivre.com/index.php/2018/09/02/usesplash/">爬虫 | JavaScript渲染服务Splash</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.sudlivre.com/index.php/2018/08/02/usegevent/">爬虫 | Python网络库gevent</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.sudlivre.com/index.php/2018/07/19/xuanzhuancode/">爬虫 | 处理点击旋转验证码</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.sudlivre.com/index.php/2018/07/15/geeyancode/">爬虫 | selenium处理bilibili的极验滑动验证码</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.sudlivre.com/index.php/2018/06/08/monilogindouban/">爬虫 | 模拟登陆豆瓣</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.sudlivre.com/index.php/2018/04/07/pythonictwo/">Pythonic之二</a></li><li><i class="fa fa-minus"></i><a target="_blank" href="http://www.sudlivre.com/index.php/2018/04/02/xianchengjincheng/">Python中的多进程与多线程</a></li>
+</ul></div></div>		</div>
+						<div id="respond" class="no_webshot">
+		<form action="http://www.sudlivre.com/wp-comments-post.php" method="post" id="commentform">
+		
+		<div class="comt-title">
+			<div class="comt-avatar pull-left">
+				<img alt='' src='http://0.gravatar.com/avatar/?s=54&#038;d=http%3A%2F%2Fwww.sudlivre.com%2Fwp-content%2Fthemes%2Fyusi1.0%2Fimg%2Fdefault.png&#038;r=g' srcset='http://0.gravatar.com/avatar/?s=108&#038;d=http%3A%2F%2Fwww.sudlivre.com%2Fwp-content%2Fthemes%2Fyusi1.0%2Fimg%2Fdefault.png&#038;r=g 2x' class='avatar avatar-54 photo avatar-default' height='54' width='54' />			</div>
+			<div class="comt-author pull-left">
+			发表我的评论			</div>
+			<a id="cancel-comment-reply-link" class="pull-right" href="javascript:;">取消评论</a>
+		</div>
+		
+		<div class="comt">
+			<div class="comt-box">
+				<textarea placeholder="写点什么..." class="input-block-level comt-area" name="comment" id="comment" cols="100%" rows="3" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
+				<div class="comt-ctrl">
+					<button class="btn btn-primary pull-right" type="submit" name="submit" id="submit" tabindex="5"><i class="fa fa-check-square-o"></i> 提交评论</button>
+					<div class="comt-tips pull-right"><input type='hidden' name='comment_post_ID' value='143' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</div>
+					<span data-type="comment-insert-smilie" class="muted comt-smilie"><i class="fa fa-smile-o"></i> 表情</span>
+					<span class="muted comt-mailme"><label for="comment_mail_notify" class="checkbox inline" style="padding-top:0"><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked"/>有人回复时邮件通知我</label></span>
+				</div>
+			</div>
+
+												<div class="comt-comterinfo" id="comment-author-info" >
+						<h4>Hi，您需要填写昵称和邮箱！</h4>
+						<ul>
+							<li class="form-inline"><label class="hide" for="author">昵称</label><input class="ipt" type="text" name="author" id="author" value="" tabindex="2" placeholder="昵称"><span class="help-inline">昵称 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="email">邮箱</label><input class="ipt" type="text" name="email" id="email" value="" tabindex="3" placeholder="邮箱"><span class="help-inline">邮箱 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="url">网址</label><input class="ipt" type="text" name="url" id="url" value="" tabindex="4" placeholder="网址"><span class="help-inline">网址</span></li>
+						</ul>
+					</div>
+									</div>
+
+		
+	</form>
+	</div>
+			</div>
+</div>
+<aside class="sidebar">	
+<div class="widget widget_text"><div class="textwidget"><div class="social">
+
+<a  href="" rel="external nofollow" title="腾讯微博" target="_blank"><i class="tencentweibo fa fa-tencent-weibo"></i></a><a href="mailto:livemissaycee@qq.com" rel="external nofollow" title="Email" target="_blank"><i class="email fa fa-envelope-o"></i></a><a href="tencent://Message/?Uin=1484705162" rel="external nofollow" title="联系QQ" target="_blank"><i class="qq fa fa-qq"></i></a><a href="" rel="external nofollow" target="_blank"  title="订阅本站"><i class="rss fa fa-rss"></i></a>
+</div></div></div>
+
+<div class="widget d_tag"><div class="title"><h2>标签云</h2></div><div class="d_tags"><a title="7个话题" href="http://www.sudlivre.com/index.php/tag/web-spider/">爬虫 (7)</a><a title="3个话题" href="http://www.sudlivre.com/index.php/tag/linux/">Linux (3)</a><a title="2个话题" href="http://www.sudlivre.com/index.php/tag/arithmetic/">算法 (2)</a><a title="2个话题" href="http://www.sudlivre.com/index.php/tag/pythonic/">Pythonic (2)</a><a title="1个话题" href="http://www.sudlivre.com/index.php/tag/process-thread/">进程线程 (1)</a><a title="1个话题" href="http://www.sudlivre.com/index.php/tag/js2py/">Js2Py (1)</a><a title="1个话题" href="http://www.sudlivre.com/index.php/tag/coroutine/">协程 (1)</a><a title="1个话题" href="http://www.sudlivre.com/index.php/tag/splash/">Splash (1)</a><a title="1个话题" href="http://www.sudlivre.com/index.php/tag/data-structure/">数据结构 (1)</a></div></div>		<div class="widget widget_recent_entries">		<div class="title"><h2>近期文章</h2></div>		<ul>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/10/21/jingmisipdera/">健壮高效的网络爬虫——感谢崔大的分享</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/10/09/use_js2py/">爬虫 | Python中使用Js2Py执行JavaScript脚本</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/09/02/usesplash/">爬虫 | JavaScript渲染服务Splash</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/08/02/usegevent/">爬虫 | Python网络库gevent</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/07/19/xuanzhuancode/">爬虫 | 处理点击旋转验证码</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/07/15/geeyancode/">爬虫 | selenium处理bilibili的极验滑动验证码</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/06/08/monilogindouban/">爬虫 | 模拟登陆豆瓣</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/06/06/linuxnotec/">Linux好记性不如烂笔头之二</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/05/13/linuxnoteb/">Linux好记性不如烂笔头之一</a>
+									</li>
+											<li>
+					<a href="http://www.sudlivre.com/index.php/2018/05/05/linuxnotea/">Linux系统Ubuntu18.04的一些优化设置</a>
+									</li>
+					</ul>
+		</div></aside></section>
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="copyright pull-left">
+         <a href="http://yusi123.com/" title="欲思博客">欲思博客</a> 版权所有，保留一切权利 ·  基于WordPress构建   
+        </div>
+        <div class="trackcode pull-right">
+                    </div>
+    </div>
+</footer>
+
+<script type='text/javascript' src='http://www.sudlivre.com/wp-content/themes/yusi1.0/js/jquery.js?ver=1.0'></script>
+<script type='text/javascript' src='http://www.sudlivre.com/wp-includes/js/wp-embed.min.js?ver=4.9.8'></script>
+</body>
+</html>

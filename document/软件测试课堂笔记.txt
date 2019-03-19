@@ -1,0 +1,152 @@
+测试是发现和标记缺陷的过程。所谓的缺陷是指实际结果和期望结果之间的任何差别。有的地方，测试也被认为是执行以找出错误为目的的程序的过程。 
+
+测试是为了让产品达到以下目标： 
+满足需求用户满意 / 改善产品的市场占有率 / 树立对产品的信任 / 减少开发和维护的成本
+
+功能测试：如果一个软件单元的行为方式与它的开发规范完全一样，那么该软件单元就通过了它的功能测试。
+	- 白盒测试：开发人员自己实现，最基本的形式是单元测试，还有集成测试和系统测试。
+	- 黑盒测试：由开发团队之外的人执行，对测试代码没有可见性，将被测系统视为黑盒子。通常由测试人员或QA工程师来执行，Web应用可以通过Selenium这样的测试框架自动化实施。
+
+Selenium / Robot Framework
+
+性能测试：软件在高工作负载下对其响应性和健壮性展开的测试。
+	- 负载测试：在特定负载下执行的测试
+	- 压力测试：突发条件或极限条件下的性能测试
+
+工具：
+	- ab：Apache Benchmark
+	- webbench：Web基准性能测试
+	- mysqlslap：MySQL性能测试工具(自带)
+	- sysbench：测试服务器CPU、内存、IO、数据库各方面的性能
+
+	- JMeter：定制和模拟并发请求
+	- LoadRunner：专业性能测试工具
+
+安全性测试：系统的敏感数据都是经过认证和授权之后才能访问。
+
+易用性测试 / 安装测试 / 可访问性测试 / 回归测试 / 验收测试 / Alpha测试 / Beta测试
+
+小规模测试 / 中等规模测试 / 大规模测试
+
+单元测试 - 测试函数、方法等最小单元的测试。这个等级的测试能明确看到输入和输出，所以测试内
+容往往就是函数或方法的设计方案本身。
+	- 测试用例 test-case
+	- 测试固件 test-fixture
+	- 测试套件/测试集 test-suite
+
+集成测试 - 集成多个函数或方法的输入输出的测试，测试时需要将多个测试对象组合在一起。
+	- 测试组件互操作性
+	- 需求变更测试
+	- 外部依赖和API
+	- 调试硬件问题
+	- 在代码路径中发现异常
+系统测试 - 对需求的测试。测试成品是否最终满足了所有需求。在客户验收项目时进行。
+
+unittest / nose2 / pytest
+	- assertEqual / assertNotEqual
+	- assertTrue / assertFalse / assertIsNot
+	- assertRaise / assertRaiseRegexp
+	- assertAlmostEqual / assertNotAlmostEqual
+	- assertGreater / assertGreaterEqual / assertLess / assertLessEqual
+	- assertRegexpMatches / assertNotRegexpMatches
+	- assertListEqual / assertSetEqual / assertTupleEqual / assertDictEqual
+
+- setUp
+- tearDown
+
+在测试过程中需要孤立各种外部依赖（数据库、外部接口调用、时间依赖）
+	- 数据源：数据本地化 / 内存 / 测试之后回滚
+	- 资源虚拟化：存根/桩（stub）、仿制/模拟（mock）、伪造（fake）
+		- stub：测试期间为提供响应的函数生成的替代品
+		- mock：代替实际对象（以及该对象的API）的对象
+		- fake：没有达到生产级别的轻量级对象
+
+覆盖率由百分比表示。比如测试代码执行过了程序的每一行，那么覆盖率就是100%。这种时候，几乎不会出现新程序上线后突然无法运行的尴尬情况。覆盖率不关心代码内容究竟是什么，覆盖率是用来检查“测试代码不足、测试存在疏漏”的一个指标，“测试内容是否妥当”并不归它管。
+
+指令覆盖率C0 / 分支覆盖率C1 / 条件覆盖率C2
+
+coverage / pytest-cov / cov-core
+
+nose2 -v -C
+pytest --cov
+
+自动化测试
+
+Selenium - 用于Web应用程序自动化测试的工具集合，还可以用于屏幕抓取与浏览器行为模拟
+
+Selenium IDE：嵌入到浏览器的插件，可以录制和回放脚本
+Selenium WebDriver：支持多种语言可以操控浏览器的API
+Selenium Standalone Server：Selenium Grid、远程控制、分布式部署
+
+数据驱动测试 - 使用外部数据源实现对输入值与期望值的参数化，避免在测试中使用硬编码的数据。
+
+Data-Driven Test
+ddt - @ddt / @data / @unpack
+cvs - CSV
+xlrd / openpyxl - Excel
+
+Test-Driven Developement
+TDD - 测试驱动开发
+
+Django中的测试
+
+测试数据库
+
+python manage.py test - 所有应用中的测试全部执行
+python manage.py test common - 执行common应用中测试
+python manage.py test common --keepdb
+python manage.py test common.tests.类名 - 执行指定的测试类
+python manage.py test common.tests.类名.方法名 - 执行指定的测试方法
+
+pip install coverage
+
+coverage run --source=common manage.py test common
+coverage report
+
+CI - 持续集成 - 用工具把版本控制、缺陷管理、测试都自动化的管理起来
+
+Jenkins(Hudson) / Travis-CI
+
+
+pip install django-debug-toolbar
+
+# settings.py
+
+INSTALLED_APPS = [
+
+    'debug_toolbar',
+
+]
+
+MIDDLEWARE = [
+    
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+]
+
+DEBUG_TOOLBAR_CONFIG = {
+    'JQUERY_URL': 'https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js',
+    'SHOW_COLLAPSED': True,
+    'SHOW_TOOLBAR_CALLBACK': lambda x: True,
+}
+
+# urls.py
+
+if settings.DEBUG:
+
+    import debug_toolbar
+
+    urlpatterns.insert(0, path('__debug__/', include(debug_toolbar.urls)))
+
+
+
+
+
+
+
+
+
+
+
+
+
