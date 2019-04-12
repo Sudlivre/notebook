@@ -12,8 +12,6 @@ pip install ansible
 pip install paramiko PyYAML Jinja2 httplib2 six
 ```
 
-
-
 ```shell
 vim /etc/ansible/hosts
 ```
@@ -31,8 +29,6 @@ vim /etc/ansible/hosts
 set-executionpolicy remotesigned
 ```
 
-
-
 ```
 winrm enumerate winrm/config/listener
 
@@ -44,8 +40,6 @@ winrm set winrm/config/service/auth @{Basic="true"}
 
 winrm set winrm/config/service @{AllowUnencrypted="true"}
 ```
-
-
 
 #### Windows下可用模块测试
 
