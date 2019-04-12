@@ -51,5 +51,7 @@ winrm set winrm/config/service @{AllowUnencrypted="true"}
 
 ```shell
 ansible windows -m win_ping
+
+ansible windows -m raw -a "CMD /C ipconfig"
 ```
 
