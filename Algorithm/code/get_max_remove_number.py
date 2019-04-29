@@ -28,7 +28,7 @@ def remove_number(tt, count=0):
             for i in range(start, len(tt)):
                 if tt[start] != tt[i]:
                     end = i - 1
-                    rm_list.append((start, end))
+                    rm_list.insert(0, (start, end))
                     break
             tt.pop()
             index += end - start
@@ -36,12 +36,11 @@ def remove_number(tt, count=0):
     if not rm_list:
         return count
     len_tt = len(tt)
-    re_rm_list = reversed(rm_list)
-    for item in re_rm_list:
+    for item in rm_list:
         del tt[item[0]:item[1]+1]
     new_count = count + len_tt - len(tt)
     return remove_number(tt, count=new_count)
 
 
-res = get_max_remove_number('A', 'ABCC')
+res = get_max_remove_number('A', 'ABBCBBCBCBCC')
 print(res)
