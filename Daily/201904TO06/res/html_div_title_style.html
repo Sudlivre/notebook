@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<style type="text/css">
+		.test {
+			
+		}
+		.move_div {
+			display: none;
+			position: absolute;
+			top: -80px;
+			left: left;
+			height: 80px;
+			width: 200px;
+			background-color: rgba(0,0,0, 0.3);
+		}
+	</style>
+</head>
+<body>
+<div style="margin-top: 50px;margin-left: 20px">
+    <div style="height: 50px;background-color: aquamarine;"></div>
+	<div style="height: 50px;background-color: chartreuse;" class="test"></div>
+	<div style="height: 50px;background-color: darkorange;"></div>
+	<div></div>
+	<div class="move_div">
+		<p>这是一个测试的样子</p>
+		<p>这是一个测试的样子</p>
+		<p>这是一个测试的样子</p>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	$(function () {
+		$(".test").bind({
+			'mouseover':function (event) {
+				var left = event.pageX,top = event.pageY;
+				$(".move_div").css("display", "block");
+				$(".move_div").css("top", top);
+				$(".move_div").css("left", left);
+				},
+			'mouseout':function (event) {
+				$(".move_div").css("display", "none");
+			},
+			'mousemove': function(enent) {
+				var left = event.pageX,top = event.pageY;
+				$(".move_div").css("top", top-150);
+				$(".move_div").css("left", left-100);
+			}
+		})
+		
+	})
+	
+</script>
+</html>
