@@ -42,35 +42,29 @@ cnpm start
 
 
 
-### Chrome
+### Python3
 
 ```shell
-wget http://www.linuxidc.com/files/repo/google-chrome.list -P /etc/apt/sources.list.d/
-wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-apt-get update
-apt-get install google-chrome-stable
-# launch Chrome
-/usr/bin/google-chrome-stable
+apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+
+wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz
+mkdir -p /usr/local/python3
+tar -zxvf Python-3.7.0.tgz
+cd Python-3.7.0
+#/usr/local/python3 install dir
+./configure --prefix=/usr/local/python3   
+make
+make install
+ln -s /usr/local/python3/bin/python3 /usr/bin/python37
+ln -s /usr/local/python3/bin/pip3 /usr/bin/pip37
 ```
 
-Launch Error
+PATH
 
 ```shell
-# error: coursed by root acount
-# ERROR:zygote_host_impl_linux.cc(89)] Running as root without --no-sandbox is not supported. See https://crbug.com/638180.
-# launch Chrome by root
-/usr/bin/google-chrome-stable --no-sandbox
-# modify /usr/share/applications/google-chrome.desktop
-# Exec=/usr/bin/google-chrome-stable --no-sandbox %U 
-```
-
-
-
-### GNOME Tweaks
-
-```shell
-apt install gnome-tweak-tool
-apt install gnome-shell-extensions
-apt install chrome-gnome-shell
+vim /etc/profile
+# add 
+# export PATH=$PATH:/usr/local/python3/bin
+source /etc/profile
 ```
 
