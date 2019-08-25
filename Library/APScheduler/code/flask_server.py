@@ -1,11 +1,12 @@
 import json
+import re
 
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 
 from timed_manager import TimedTaskManager
 from timed_method import print_task, spider_task, process_task
-
+from utils import job2dict
 
 app = Flask(__name__)
 api = Api(app)
@@ -50,6 +51,14 @@ def timed_scheduler():
 def turn_off_scheduler():
     res = TimedTaskManager().shutdown_scheduler()
     return jsonify({'result': 'success'})
+
+
+@app.route('/api/jobs')
+def get_jobs():
+    jobs = TimedTaskManager().get_all_jobs_from_mongo()
+    data = list()
+    [data.append(job2dict(job)) for job in jobs]
+    return jsonify({'result': 'success', 'data': data})
 
 
 if __name__ == '__main__':
