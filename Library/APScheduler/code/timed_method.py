@@ -45,5 +45,5 @@ def random_calculation(count):
     for i in range(number):
         result += i
         time.sleep(0.5)
-    logging.info(result)
+    logging.info("random_calculation: {}".format(result))
 

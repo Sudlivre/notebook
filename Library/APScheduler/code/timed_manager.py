@@ -58,8 +58,16 @@ class TimedTaskManager(object):
     def get_jobs(self):
         return self.scheduler.get_jobs()
 
+    def get_all_jobs_from_mongo(self):
+        """
+        :return:
+        [<Job (id=task_id name=task_name)>]
+        [<class 'apscheduler.job.Job'>]
+        """
+        return self.jobstores.get('default').get_all_jobs()
+
     def start_scheduler(self):
         self.scheduler.start()
 
     def shutdown_scheduler(self):
-        self.scheduler.shutdown()
+        self.scheduler.shutdown(wait=False)
